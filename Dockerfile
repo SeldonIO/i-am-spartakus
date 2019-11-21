@@ -1,3 +1,18 @@
+FROM golang:1.12 as builder
+
+WORKDIR /work
+
+# Download dependencies first to optimize Docker caching.
+RUN mkdir -p spartakus
+COPY spartakus/go.mod /work/spartakus/
+COPY spartakus/go.sum /work/spartakus/
+RUN cd spartakus && go mod download
+
+COPY . .
+
+RUN make build_binary
+
+
 FROM ubuntu:18.04
 
 RUN set -ex \
@@ -15,7 +30,7 @@ RUN set -ex \
 
 RUN update-ca-certificates
 
-ADD bin/spartakus-linux-amd64 /spartakus
+COPY --from=builder /work/bin/spartakus-linux-amd64 /spartakus
 
 USER nobody:nogroup
 ENTRYPOINT ["/spartakus"]

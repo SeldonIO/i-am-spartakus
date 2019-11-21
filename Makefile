@@ -4,11 +4,17 @@ IMAGE_TAG:=v1.1.0-hack-0.1
 PKG:=github.com/kubernetes-incubator/spartakus
 BINARY:=spartakus-linux-amd64
 
-all: clean build_image
+build_image:
+	docker build --file=Dockerfile --force-rm=true -t $(IMAGE_NAME):$(IMAGE_TAG) .
 
-bin/$(BINARY): build_binary
+push_image:
+	docker push $(IMAGE_NAME):$(IMAGE_TAG)
 
-build_binary:
+check_image_repo:
+	xdg-open https://cloud.docker.com/u/seldonio/repository/docker/seldonio/spartakus-amd64
+
+
+build_binary: clean
 	mkdir -p ./bin/
 	cd spartakus && \
 		go build -o ../bin/$(BINARY) \
@@ -18,13 +24,4 @@ build_binary:
 
 clean:
 	rm -rfv ./bin/
-
-build_image:  bin/$(BINARY)
-	docker build --file=Dockerfile --force-rm=true -t $(IMAGE_NAME):$(IMAGE_TAG) .
-
-push_image:
-	docker push $(IMAGE_NAME):$(IMAGE_TAG)
-
-check_image_repo:
-	xdg-open https://cloud.docker.com/u/seldonio/repository/docker/seldonio/spartakus-amd64
 
