@@ -20,5 +20,5 @@ Error: failed to store record: googleapi:
 ```
 Then try replacing the existing 'gcr.io/google_containers/spartakus-amd64:v1.1.0' image with
 ```
-docker.io/seldonio/spartakus-amd64:v1.1.0-hack-0.1
+docker.io/seldonio/spartakus-amd64:v1.1.0-hack-0.2
 ```

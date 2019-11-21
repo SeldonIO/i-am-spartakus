@@ -1,5 +1,5 @@
 IMAGE_NAME:=docker.io/seldonio/spartakus-amd64
-IMAGE_TAG:=v1.1.0-hack-0.1
+IMAGE_TAG:=v1.1.0-hack-0.2
 
 PKG:=github.com/kubernetes-incubator/spartakus
 BINARY:=spartakus-linux-amd64
