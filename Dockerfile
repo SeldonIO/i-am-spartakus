@@ -1,4 +1,4 @@
-FROM golang:1.12 as builder
+FROM golang:1.20.2 as builder
 
 WORKDIR /work
 
@@ -13,7 +13,7 @@ COPY . .
 RUN make build_binary
 
 
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 RUN set -ex \
     && apt-get update -yqq \
